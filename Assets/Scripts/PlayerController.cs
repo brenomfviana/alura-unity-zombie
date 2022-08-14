@@ -9,8 +9,17 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float xAxis = Input.GetAxis("Horizontal");
-        float zAxis = Input.GetAxis("Vertical");    
+        float zAxis = Input.GetAxis("Vertical");
         Vector3 direction = new Vector3(xAxis, 0, zAxis);
         transform.Translate(direction * speed * Time.deltaTime);
+
+        if (direction != Vector3.zero)
+        {
+            GetComponent<Animator>().SetBool("IsRunning", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("IsRunning", false);
+        }
     }
 }
