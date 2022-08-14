@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 15;
+    public float speed = 10;
+
+    private Rigidbody rigidbody;
+    private Vector3 direction;
+
+    void Start()
+    {
+        rigidbody = GetComponent<Rigidbody>();
+    }
 
     void Update()
     {
         float xAxis = Input.GetAxis("Horizontal");
         float zAxis = Input.GetAxis("Vertical");
-        Vector3 direction = new Vector3(xAxis, 0, zAxis);
-        transform.Translate(direction * speed * Time.deltaTime);
+
+        direction = new Vector3(xAxis, 0, zAxis);
 
         if (direction != Vector3.zero)
         {
@@ -21,5 +29,12 @@ public class PlayerController : MonoBehaviour
         {
             GetComponent<Animator>().SetBool("IsRunning", false);
         }
+    }
+
+    void FixedUpdate()
+    {
+        Vector3 velocity = direction * speed * Time.deltaTime;
+        Vector3 position = rigidbody.position + velocity;
+        rigidbody.MovePosition(position);
     }
 }
