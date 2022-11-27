@@ -15,13 +15,16 @@ public class ZombieController : MonoBehaviour
     }
 
     void FixedUpdate()
-    {   
-        float distance = Vector3.Distance(transform.position, player.transform.position);
+    {
+        Vector3 playerPosition = player.transform.position;
+        Vector3 zombiePosition = transform.position;
+        float distance = Vector3.Distance(zombiePosition, playerPosition);
         if (distance > 2.5f)
         {
-            Vector3 direction = (player.transform.position - transform.position).normalized;
-            Vector3 currentPosition = rigidbody.position;
-            rigidbody.MovePosition(currentPosition + direction * speed * Time.deltaTime);
+            Vector3 direction = (playerPosition - zombiePosition).normalized;
+            Vector3 velocity = direction * speed * Time.deltaTime;
+            Vector3 position = rigidbody.position + velocity;
+            rigidbody.MovePosition(position);
             Quaternion newRotation = Quaternion.LookRotation(direction);
             rigidbody.MoveRotation(newRotation);
         }

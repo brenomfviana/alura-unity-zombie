@@ -15,9 +15,10 @@ public class Bullet : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 position = rigidbody.position;
         Vector3 direction = transform.forward;
-        rigidbody.MovePosition(position + direction * speed * Time.deltaTime);
+        Vector3 velocity = direction * speed * Time.deltaTime;
+        Vector3 position = rigidbody.position + velocity;
+        rigidbody.MovePosition(position);
     }
 
     void OnTriggerEnter(Collider other)

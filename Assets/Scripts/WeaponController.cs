@@ -11,7 +11,9 @@ public class WeaponController : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            Instantiate(bullet, spawn.transform.position, spawn.transform.rotation);
+            Vector3 spawnPosition = spawn.transform.position;
+            Quaternion spawnRotation = spawn.transform.rotation;
+            Instantiate(bullet, spawnPosition, spawnRotation);
         }
     }
 }
