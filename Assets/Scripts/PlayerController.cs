@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 10;
-    public bool alive = true;
-    public LayerMask groundMask;
-    public GameObject textGameOver;
+    public float Speed = 10;
+    public bool Alive = true;
+    public LayerMask GroundMask;
+    public GameObject TextGameOver;
 
     private new Rigidbody rigidbody;
     private Animator animator;
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsRunning", false);
         }
 
-        if (!alive && Input.GetButtonDown("Fire1"))
+        if (!Alive && Input.GetButtonDown("Fire1"))
         {
             SceneManager.LoadScene("Game");
         }
@@ -45,14 +45,14 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 velocity = direction * speed * Time.deltaTime;
+        Vector3 velocity = direction * Speed * Time.deltaTime;
         Vector3 position = rigidbody.position + velocity;
         rigidbody.MovePosition(position);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit impact;
         Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
-        if (Physics.Raycast(ray, out impact, 100, groundMask))
+        if (Physics.Raycast(ray, out impact, 100, GroundMask))
         {
             Vector3 sightPosition = impact.point - transform.position;
             sightPosition.y = transform.position.y;

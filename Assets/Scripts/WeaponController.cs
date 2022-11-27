@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    public GameObject bullet;
-    public GameObject spawn;
+    public GameObject Bullet;
+    public GameObject Spawn;
 
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            Vector3 spawnPosition = spawn.transform.position;
-            Quaternion spawnRotation = spawn.transform.rotation;
-            Instantiate(bullet, spawnPosition, spawnRotation);
+            Vector3 SpawnPosition = Spawn.transform.position;
+            Quaternion SpawnRotation = Spawn.transform.rotation;
+            Instantiate(Bullet, SpawnPosition, SpawnRotation);
         }
     }
 }

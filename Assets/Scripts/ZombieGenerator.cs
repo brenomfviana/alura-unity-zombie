@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ZombieGenerator : MonoBehaviour
 {
-    public GameObject zombie;
+    public GameObject Zombie;
 
     private float counter;
     private float cooldown = 1;
@@ -15,7 +15,7 @@ public class ZombieGenerator : MonoBehaviour
         counter += Time.deltaTime;
         if (counter >= cooldown)
         {
-            Instantiate(zombie, transform.position, transform.rotation);
+            Instantiate(Zombie, transform.position, transform.rotation);
             counter = 0;
         }
     }
