@@ -17,7 +17,8 @@ public class ZombieController : MonoBehaviour
     void FixedUpdate()
     {   
         float distance = Vector3.Distance(transform.position, player.transform.position);
-        if (distance > 2.5f) {
+        if (distance > 2.5f)
+        {
             Vector3 direction = (player.transform.position - transform.position).normalized;
             Vector3 currentPosition = rigidbody.position;
             rigidbody.MovePosition(currentPosition + direction * speed * Time.deltaTime);
