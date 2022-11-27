@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ZombieController : MonoBehaviour
 {
-    public GameObject player;
     public float speed = 5;
+    public GameObject player;
 
     private new Rigidbody rigidbody;
     private Animator animator;
@@ -14,6 +14,9 @@ public class ZombieController : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        player = GameObject.FindWithTag("Player");
+        int zombieType = Random.Range(1, 28);
+        transform.GetChild(zombieType).gameObject.SetActive(true);
     }
 
     void FixedUpdate()
