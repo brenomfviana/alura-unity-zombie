@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 10;
+    public bool alive = true;
     public LayerMask groundMask;
+    public GameObject textGameOver;
 
     private new Rigidbody rigidbody;
     private Animator animator;
@@ -15,6 +18,7 @@ public class PlayerController : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        Time.timeScale = 1;
     }
 
     void Update()
@@ -31,6 +35,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetBool("IsRunning", false);
+        }
+
+        if (!alive && Input.GetButtonDown("Fire1"))
+        {
+            SceneManager.LoadScene("Game");
         }
     }
 
