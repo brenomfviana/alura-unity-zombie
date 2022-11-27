@@ -253,15 +253,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4610746654156704, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -25
+      value: -24.972187
       objectReference: {fileID: 0}
     - target: {fileID: 4610746654156704, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.42
+      value: 1.4144328
       objectReference: {fileID: 0}
     - target: {fileID: 4610746654156704, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16
+      value: -15.902895
       objectReference: {fileID: 0}
     - target: {fileID: 4610746654156704, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -311,6 +311,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!95 &199000433
 Animator:
   serializedVersion: 4
@@ -374,6 +377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 2361933093712169865, guid: 8bda426ee52e9317498cfa949d0c1d1c, type: 3}
+  spawn: {fileID: 1669024109}
 --- !u!1001 &201896028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -941,6 +945,10 @@ PrefabInstance:
     - target: {fileID: 73860478328739987, guid: b5938166a854b2e4ead3c9adadc3ed62, type: 3}
       propertyPath: m_Name
       value: Hotel_Estacionamento_Destruido
+      objectReference: {fileID: 0}
+    - target: {fileID: 73860478328739987, guid: b5938166a854b2e4ead3c9adadc3ed62, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 73860478329029811, guid: b5938166a854b2e4ead3c9adadc3ed62, type: 3}
       propertyPath: m_RootOrder

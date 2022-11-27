@@ -7,7 +7,7 @@ public class ZombieController : MonoBehaviour
     public GameObject player;
     public float speed = 5;
 
-    private Rigidbody rigidbody;
+    private new Rigidbody rigidbody;
 
     void Start()
     {

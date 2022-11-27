@@ -6,7 +6,7 @@ public class Weapon : MonoBehaviour
 {
     public float speed = 30;
 
-    private Rigidbody rigidbody;
+    private new Rigidbody rigidbody;
 
     void Start()
     {
