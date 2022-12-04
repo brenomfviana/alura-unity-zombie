@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 6685861104823342865}
   - component: {fileID: -494891124189859718}
   - component: {fileID: 5801602300056392907}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Zumbi
   m_TagString: Inimigo
   m_Icon: {fileID: 0}
@@ -677,6 +677,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1884102019447498, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
   status: {fileID: 0}
+  SightDistance: 15
+  AttackDistance: 2.5
+  WanderingRange: 10
+  MinDamage: 20
+  MaxDamage: 30
   DeathSound: {fileID: 8300000, guid: 074aa1cc217d53c17b4b3ddf50ddbbf6, type: 3}
 --- !u!114 &6685861104823342865
 MonoBehaviour:

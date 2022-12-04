@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ZombieController : MonoBehaviour, IKillable
 {
-    public GameObject Player;
-
     [HideInInspector]
     public Status status;
+
+    private GameObject player;
 
     private MovementController movement;
     private AnimatorController animator;
@@ -32,7 +32,7 @@ public class ZombieController : MonoBehaviour, IKillable
 
     void Start()
     {
-        Player = GameObject.FindWithTag(Tags.PLAYER);
+        player = GameObject.FindWithTag(Tags.PLAYER);
 
         status = GetComponent<Status>();
 
@@ -83,12 +83,12 @@ public class ZombieController : MonoBehaviour, IKillable
 
     bool CanAttack()
     {
-        return Distance(Player.transform.position) <= AttackDistance;
+        return Distance(player.transform.position) <= AttackDistance;
     }
 
     bool CanSee()
     {
-        return Distance(Player.transform.position) <= SightDistance;
+        return Distance(player.transform.position) <= SightDistance;
     }
 
     void Attack()
@@ -103,7 +103,7 @@ public class ZombieController : MonoBehaviour, IKillable
 
     void ChasePlayer()
     {
-        direction = Direction(Player.transform.position);
+        direction = Direction(player.transform.position);
 
         Vector3 ndirection = direction.normalized;
         movement.Move(ndirection, status.Speed);
@@ -144,7 +144,7 @@ public class ZombieController : MonoBehaviour, IKillable
 
     void HitPlayer()
     {
-        PlayerController pc = Player.GetComponent<PlayerController>();
+        PlayerController pc = player.GetComponent<PlayerController>();
         int damage = Random.Range(MinDamage, MaxDamage);
         pc.TakeDamage(damage);
     }
