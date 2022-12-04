@@ -13,14 +13,14 @@ public class PlayerController : MonoBehaviour
     public float Speed = 10;
     public int Health = 100;
 
-    private new Rigidbody rigidbody;
     private Animator animator;
     private Vector3 direction;
+    private Movement movement;
 
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        movement = GetComponent<Movement>();
         Time.timeScale = 1;
     }
 
@@ -48,9 +48,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 velocity = direction * Speed * Time.deltaTime;
-        Vector3 position = rigidbody.position + velocity;
-        rigidbody.MovePosition(position);
+        movement.Move(direction, Speed);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit impact;
@@ -58,9 +56,8 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(ray, out impact, 100, GroundMask))
         {
             Vector3 sightPosition = impact.point - transform.position;
-            sightPosition.y = transform.position.y;
-            Quaternion rotation = Quaternion.LookRotation(sightPosition);
-            rigidbody.MoveRotation(rotation);
+            sightPosition.y = 0;
+            movement.Rotate(sightPosition);
         }
     }
 

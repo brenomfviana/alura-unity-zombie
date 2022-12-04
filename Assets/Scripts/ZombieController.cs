@@ -8,14 +8,14 @@ public class ZombieController : MonoBehaviour
 
     public float Speed = 5;
 
-    private new Rigidbody rigidbody;
     private Animator animator;
+    private Movement movement;
 
     void Start()
     {
         Player = GameObject.FindWithTag("Player");
-        rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        movement = GetComponent<Movement>();
         int zombieType = Random.Range(1, 28);
         transform.GetChild(zombieType).gameObject.SetActive(true);
     }
@@ -26,15 +26,12 @@ public class ZombieController : MonoBehaviour
         Vector3 zombiePosition = transform.position;
 
         Vector3 direction = (playerPosition - zombiePosition).normalized;
-        Quaternion newRotation = Quaternion.LookRotation(direction);
-        rigidbody.MoveRotation(newRotation);
+        movement.Rotate(direction);
 
         float distance = Vector3.Distance(zombiePosition, playerPosition);
         if (distance > 2.5f)
         {
-            Vector3 velocity = direction * Speed * Time.deltaTime;
-            Vector3 position = rigidbody.position + velocity;
-            rigidbody.MovePosition(position);
+            movement.Move(direction, Speed);
             animator.SetBool("IsAttacking", false);
         }
         else
