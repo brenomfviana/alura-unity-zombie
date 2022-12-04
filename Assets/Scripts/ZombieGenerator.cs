@@ -5,6 +5,7 @@ using UnityEngine;
 public class ZombieGenerator : MonoBehaviour
 {
     public GameObject Zombie;
+
     public float Cooldown = 1;
 
     private float counter;

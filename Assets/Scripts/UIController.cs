@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public Slider PlayerHealth;
-    
+
     private PlayerController scriptPC;
         
     void Start()

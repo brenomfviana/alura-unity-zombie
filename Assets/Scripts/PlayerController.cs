@@ -5,11 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public float Speed = 10;
-    public int Health = 100;
     public LayerMask GroundMask;
     public GameObject TextGameOver;
-    public UIController scriptUIC;
+    public UIController ScriptUIC;
+    public AudioClip DamageSound;
+
+    public float Speed = 10;
+    public int Health = 100;
 
     private new Rigidbody rigidbody;
     private Animator animator;
@@ -70,7 +72,8 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Health -= damage;
-        scriptUIC.UpdateHealth();
+        ScriptUIC.UpdateHealth();
+        AudioController.instance.PlayOneShot(DamageSound);
         if (Health <= 0)
         {
             TextGameOver.SetActive(true);
