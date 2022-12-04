@@ -13,14 +13,15 @@ public class PlayerController : MonoBehaviour
     public float Speed = 10;
     public int Health = 100;
 
-    private Animator animator;
+    private PlayerMovement movement;
+    private AnimatorController animator;
     private Vector3 direction;
-    private MovementController movement;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        movement = GetComponent<MovementController>();
+        movement = GetComponent<PlayerMovement>();
+        animator = GetComponent<AnimatorController>();
+
         Time.timeScale = 1;
     }
 
@@ -28,17 +29,9 @@ public class PlayerController : MonoBehaviour
     {
         float xAxis = Input.GetAxis("Horizontal");
         float zAxis = Input.GetAxis("Vertical");
-
         direction = new Vector3(xAxis, 0, zAxis);
 
-        if (direction != Vector3.zero)
-        {
-            animator.SetBool("IsRunning", true);
-        }
-        else
-        {
-            animator.SetBool("IsRunning", false);
-        }
+        animator.Move(direction.magnitude);
 
         if (!IsAlive() && Input.GetButtonDown("Fire1"))
         {
@@ -49,16 +42,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         movement.Move(direction, Speed);
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit impact;
-        // Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
-        if (Physics.Raycast(ray, out impact, 100, GroundMask))
-        {
-            Vector3 sightPosition = impact.point - transform.position;
-            sightPosition.y = 0;
-            movement.Rotate(sightPosition);
-        }
+        movement.Rotate(GroundMask);
     }
 
     private bool IsAlive()

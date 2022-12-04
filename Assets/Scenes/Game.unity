@@ -1641,7 +1641,7 @@ MonoBehaviour:
   Bullet: {fileID: 2361933093712169865, guid: 8bda426ee52e9317498cfa949d0c1d1c, type: 3}
   Spawn: {fileID: 1669024109}
   ShotSound: {fileID: 8300000, guid: 814da0db097230958a1fede4f86d6ddf, type: 3}
---- !u!114 &199000440
+--- !u!114 &199000439
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1650,7 +1650,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 199000431}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da5cdc069fa1e153595f2e8bdbd26e0a, type: 3}
+  m_Script: {fileID: 11500000, guid: 60af215e498380a31a688004163688e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &201896028

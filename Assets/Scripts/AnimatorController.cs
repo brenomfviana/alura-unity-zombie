@@ -15,4 +15,9 @@ public class AnimatorController : MonoBehaviour
     {
         animator.SetBool("IsAttacking", state);
     }
+
+    public void Move(float speed)
+    {
+        animator.SetFloat("Moving", speed);
+    }
 }
