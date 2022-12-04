@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -11,10 +10,11 @@ public class UIController : MonoBehaviour
     public Slider PlayerHealth;
     public GameObject GameOverPanel;
     public TMP_Text SurvivalTimeText;
+    public TMP_Text MaxSurvivalTimeText;
 
     private PlayerController scriptPC;
 
-    private static string MESSAGE = "Você sobreviveu por {}min e {}s!";
+    private float maxTime;
 
     void Start()
     {
@@ -23,6 +23,7 @@ public class UIController : MonoBehaviour
             .GetComponent<PlayerController>();
         PlayerHealth.maxValue = scriptPC.status.Health;
         UpdateHealth();
+        maxTime = PlayerPrefs.GetFloat("MaxScore");
     }
 
     public void UpdateHealth()
@@ -38,11 +39,25 @@ public class UIController : MonoBehaviour
         int minutes = (int) (Time.timeSinceLevelLoad / 60);
         int seconds = (int) (Time.timeSinceLevelLoad % 60);
 
-        Regex regex = new Regex("{}");
-        string message = regex.Replace(MESSAGE, minutes.ToString(), 1);
-        message = regex.Replace(message, seconds.ToString(), 1);
+        SurvivalTimeText.text = string.Format("Você sobreviveu por {0}min e {1}s!", minutes, seconds);
 
-        SurvivalTimeText.text = message;
+        UpdateMaxScore(minutes, seconds);
+    }
+
+    public void UpdateMaxScore(int minutes, int seconds)
+    {
+        if (Time.timeSinceLevelLoad > maxTime)
+        {
+            maxTime = Time.timeSinceLevelLoad;
+            PlayerPrefs.SetFloat("MaxScore", maxTime);
+        }
+        else
+        {
+            minutes = (int) (maxTime / 60);
+            seconds = (int) (maxTime % 60);
+        }
+
+        MaxSurvivalTimeText.text = string.Format("Melhor tempo: {0}min e {1}s.", minutes, seconds);
     }
 
     public void Restart()

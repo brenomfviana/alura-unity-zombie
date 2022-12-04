@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ZombieController : MonoBehaviour, IKillable
 {
+    private static float DISTANCE_ERROR = 0.05f;
+
     [HideInInspector]
     public Status status;
 
@@ -27,8 +29,6 @@ public class ZombieController : MonoBehaviour, IKillable
     private Vector3 randomPosition;
     private float wanderingTime = 0;
     private float positionGeneratingTime = 4;
-
-    private static float DISTANCE_ERROR = 0.05f;
 
     void Start()
     {

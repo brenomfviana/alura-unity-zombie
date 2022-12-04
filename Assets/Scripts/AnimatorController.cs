@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class AnimatorController : MonoBehaviour
 {
-    private Animator animator;
-
     private static string IS_ATTACKING = "IsAttacking";
     private static string MOVING = "Moving";
+
+    private Animator animator;
 
     void Awake()
     {
