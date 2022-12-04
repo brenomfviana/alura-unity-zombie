@@ -12,13 +12,23 @@ public class ZombieController : MonoBehaviour, IKillable
     private MovementController movement;
     private AnimatorController animator;
 
+    public float SightDistance = 15.0f;
     public float AttackDistance = 2.5f;
+    public float WanderingRange = 10.0f;
     public int MinDamage = 20;
     public int MaxDamage = 30;
     public AudioClip DeathSound;
 
     private int MinZombieLook = 1;
     private int MaxZombieLook = 28;
+
+    private Vector3 direction;
+    
+    private Vector3 randomPosition;
+    private float wanderingTime = 0;
+    private float positionGeneratingTime = 4;
+
+    private static float DISTANCE_ERROR = 0.05f;
 
     void Start()
     {
@@ -34,19 +44,20 @@ public class ZombieController : MonoBehaviour, IKillable
 
     void FixedUpdate()
     {
-        Vector3 direction = Direction(Player.transform.position);
-
-        if (IsCloseToAttack(Player.transform.position))
+        if (CanAttack())
         {
-            animator.Attack(true);
+            Attack();
+        }
+        else if (CanSee())
+        {
+            ChasePlayer();
         }
         else
         {
-            movement.Move(direction, status.Speed);
-            animator.Attack(false);
+            Wander();
         }
 
-        movement.Rotate(direction);
+        Move();
     }
 
     private void SetZombieLook()
@@ -62,7 +73,7 @@ public class ZombieController : MonoBehaviour, IKillable
 
     Vector3 Direction(Vector3 target)
     {
-        return (target - Position()).normalized;
+        return (target - Position());
     }
 
     float Distance(Vector3 target)
@@ -70,9 +81,65 @@ public class ZombieController : MonoBehaviour, IKillable
         return Vector3.Distance(Position(), target);
     }
 
-    bool IsCloseToAttack(Vector3 target)
+    bool CanAttack()
     {
         return Distance(Player.transform.position) <= AttackDistance;
+    }
+
+    bool CanSee()
+    {
+        return Distance(Player.transform.position) <= SightDistance;
+    }
+
+    void Attack()
+    {
+        animator.Attack(true);
+    }
+
+    void Move()
+    {
+        animator.Move(direction.magnitude);
+    }
+
+    void ChasePlayer()
+    {
+        direction = Direction(Player.transform.position);
+
+        Vector3 ndirection = direction.normalized;
+        movement.Move(ndirection, status.Speed);
+        movement.Rotate(ndirection);
+
+        animator.Attack(false);
+    }
+
+    bool ReachPosition(Vector3 target)
+    {
+        return Distance(target) <= DISTANCE_ERROR;
+    }
+
+    void Wander()
+    {
+        wanderingTime -= Time.deltaTime;
+        if (wanderingTime <= 0)
+        {
+            randomPosition = RandomPosition();
+            wanderingTime += positionGeneratingTime;
+        }
+        if (!ReachPosition(randomPosition))
+        {
+            direction = Direction(randomPosition);
+            Vector3 ndirection = direction.normalized;
+            movement.Move(ndirection, status.Speed);
+            movement.Rotate(ndirection);
+        }
+    }
+
+    Vector3 RandomPosition()
+    {
+        Vector3 position = Random.insideUnitSphere * WanderingRange;
+        position += transform.position;
+        position.y = transform.position.y;
+        return position;
     }
 
     void HitPlayer()
