@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IKillable
 {
     public LayerMask GroundMask;
     public GameObject TextGameOver;
@@ -58,10 +58,16 @@ public class PlayerController : MonoBehaviour
         status.Health -= damage;
         ScriptUIC.UpdateHealth();
         AudioController.instance.PlayOneShot(DamageSound);
+
         if (status.Health <= 0)
         {
-            TextGameOver.SetActive(true);
-            Time.timeScale = 0;
+            Die();
         }
+    }
+
+    public void Die()
+    {
+        TextGameOver.SetActive(true);
+        Time.timeScale = 0;
     }
 }

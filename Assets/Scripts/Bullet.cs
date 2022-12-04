@@ -5,29 +5,26 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float Speed = 30;
-    public AudioClip DeathSound;
 
-    private new Rigidbody rigidbody;
+    private MovementController movement;
 
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        movement = GetComponent<MovementController>();
     }
 
     void FixedUpdate()
     {
         Vector3 direction = transform.forward;
-        Vector3 velocity = direction * Speed * Time.deltaTime;
-        Vector3 position = rigidbody.position + velocity;
-        rigidbody.MovePosition(position);
+        movement.Move(direction, Speed);
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Inimigo")
         {
-            Destroy(other.gameObject);
-            AudioController.instance.PlayOneShot(DeathSound);
+            ZombieController enemy = other.GetComponent<ZombieController>();
+            enemy.TakeDamage(1);
         }
         Destroy(gameObject);
     }

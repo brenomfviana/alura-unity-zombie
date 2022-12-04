@@ -677,6 +677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1884102019447498, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
   status: {fileID: 0}
+  DeathSound: {fileID: 8300000, guid: 074aa1cc217d53c17b4b3ddf50ddbbf6, type: 3}
 --- !u!114 &6685861104823342865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,7 +714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78fbbcf66e8546bab002a4e201bb96e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialHealth: 100
+  InitialHealth: 1
   Speed: 5
   Health: 0
 --- !u!1 &1065480718027956
