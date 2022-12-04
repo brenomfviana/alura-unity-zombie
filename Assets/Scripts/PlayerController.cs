@@ -6,9 +6,10 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public float Speed = 10;
-    public bool Alive = true;
+    public int Health = 100;
     public LayerMask GroundMask;
     public GameObject TextGameOver;
+    public UIController scriptUIC;
 
     private new Rigidbody rigidbody;
     private Animator animator;
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsRunning", false);
         }
 
-        if (!Alive && Input.GetButtonDown("Fire1"))
+        if (!IsAlive() && Input.GetButtonDown("Fire1"))
         {
             SceneManager.LoadScene("Game");
         }
@@ -58,6 +59,22 @@ public class PlayerController : MonoBehaviour
             sightPosition.y = transform.position.y;
             Quaternion rotation = Quaternion.LookRotation(sightPosition);
             rigidbody.MoveRotation(rotation);
+        }
+    }
+
+    private bool IsAlive()
+    {
+        return Health > 0;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+        scriptUIC.UpdateHealth();
+        if (Health <= 0)
+        {
+            TextGameOver.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 }

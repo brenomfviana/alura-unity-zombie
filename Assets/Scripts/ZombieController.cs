@@ -45,8 +45,7 @@ public class ZombieController : MonoBehaviour
     void HitPlayer()
     {
         PlayerController pc = Player.GetComponent<PlayerController>();
-        pc.TextGameOver.SetActive(true);
-        pc.Alive = false;
-        Time.timeScale = 0;
+        int damage = Random.Range(20, 30);
+        pc.TakeDamage(damage);
     }
 }

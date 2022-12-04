@@ -9,7 +9,6 @@ public class ZombieGenerator : MonoBehaviour
 
     private float counter;
 
-    // Update is called once per frame
     void Update()
     {
         counter += Time.deltaTime;
