@@ -15,12 +15,12 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
     private Vector3 direction;
-    private Movement movement;
+    private MovementController movement;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        movement = GetComponent<Movement>();
+        movement = GetComponent<MovementController>();
         Time.timeScale = 1;
     }
 

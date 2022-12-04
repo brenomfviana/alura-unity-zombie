@@ -8,36 +8,53 @@ public class ZombieController : MonoBehaviour
 
     public float Speed = 5;
 
-    private Animator animator;
-    private Movement movement;
+    private MovementController movement;
+    private AnimatorController animator;
 
     void Start()
     {
         Player = GameObject.FindWithTag("Player");
-        animator = GetComponent<Animator>();
-        movement = GetComponent<Movement>();
-        int zombieType = Random.Range(1, 28);
-        transform.GetChild(zombieType).gameObject.SetActive(true);
+        movement = GetComponent<MovementController>();
+        animator = GetComponent<AnimatorController>();
+
+        SetZombieLook();
     }
 
     void FixedUpdate()
     {
-        Vector3 playerPosition = Player.transform.position;
-        Vector3 zombiePosition = transform.position;
+        Vector3 direction = Direction(Player.transform.position);
 
-        Vector3 direction = (playerPosition - zombiePosition).normalized;
-        movement.Rotate(direction);
-
-        float distance = Vector3.Distance(zombiePosition, playerPosition);
-        if (distance > 2.5f)
+        if (Distance(Player.transform.position) > 2.5f)
         {
             movement.Move(direction, Speed);
-            animator.SetBool("IsAttacking", false);
+            animator.Attack(false);
         }
         else
         {
-            animator.SetBool("IsAttacking", true);
+            animator.Attack(true);
         }
+
+        movement.Rotate(direction);
+    }
+
+    private void SetZombieLook() {
+        int zombieType = Random.Range(1, 28);
+        transform.GetChild(zombieType).gameObject.SetActive(true);
+    }
+
+    Vector3 Position()
+    {
+        return transform.position;
+    }
+
+    Vector3 Direction(Vector3 target)
+    {
+        return (target - Position()).normalized;
+    }
+
+    float Distance(Vector3 target)
+    {
+        return Vector3.Distance(Position(), target);
     }
 
     void HitPlayer()
