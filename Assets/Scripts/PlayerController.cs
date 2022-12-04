@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IKillable
 {
@@ -24,8 +23,6 @@ public class PlayerController : MonoBehaviour, IKillable
 
         movement = GetComponent<PlayerMovement>();
         animator = GetComponent<AnimatorController>();
-
-        Time.timeScale = 1;
     }
 
     void Update()
@@ -36,10 +33,6 @@ public class PlayerController : MonoBehaviour, IKillable
 
         animator.Move(direction.magnitude);
 
-        if (!IsAlive() && Input.GetButtonDown("Fire1"))
-        {
-            SceneManager.LoadScene("Game");
-        }
     }
 
     void FixedUpdate()
@@ -48,7 +41,7 @@ public class PlayerController : MonoBehaviour, IKillable
         movement.Rotate(GroundMask);
     }
 
-    private bool IsAlive()
+    public bool IsAlive()
     {
         return status.Health > 0;
     }
@@ -67,7 +60,6 @@ public class PlayerController : MonoBehaviour, IKillable
 
     public void Die()
     {
-        TextGameOver.SetActive(true);
-        Time.timeScale = 0;
+        ScriptUIC.GameOver();
     }
 }

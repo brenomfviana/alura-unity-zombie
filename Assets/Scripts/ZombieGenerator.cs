@@ -65,7 +65,7 @@ public class ZombieGenerator : MonoBehaviour
     {
         Vector3 position = Random.insideUnitSphere * SpawnRange;
         position += transform.position;
-        position.y = 0;
+        position.y = transform.position.y;
         return position;
     }
 
