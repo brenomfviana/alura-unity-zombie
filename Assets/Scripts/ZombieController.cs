@@ -6,7 +6,8 @@ public class ZombieController : MonoBehaviour
 {
     public GameObject Player;
 
-    public float Speed = 5;
+    [HideInInspector]
+    public Status status;
 
     private MovementController movement;
     private AnimatorController animator;
@@ -14,6 +15,9 @@ public class ZombieController : MonoBehaviour
     void Start()
     {
         Player = GameObject.FindWithTag("Player");
+
+        status = GetComponent<Status>();
+
         movement = GetComponent<MovementController>();
         animator = GetComponent<AnimatorController>();
 
@@ -26,7 +30,7 @@ public class ZombieController : MonoBehaviour
 
         if (Distance(Player.transform.position) > 2.5f)
         {
-            movement.Move(direction, Speed);
+            movement.Move(direction, status.Speed);
             animator.Attack(false);
         }
         else

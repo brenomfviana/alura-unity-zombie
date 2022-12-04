@@ -9,16 +9,19 @@ public class PlayerController : MonoBehaviour
     public GameObject TextGameOver;
     public UIController ScriptUIC;
     public AudioClip DamageSound;
-
-    public float Speed = 10;
-    public int Health = 100;
+    
+    [HideInInspector]
+    public Status status;
 
     private PlayerMovement movement;
     private AnimatorController animator;
+
     private Vector3 direction;
 
     void Start()
     {
+        status = GetComponent<Status>();
+
         movement = GetComponent<PlayerMovement>();
         animator = GetComponent<AnimatorController>();
 
@@ -41,21 +44,21 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        movement.Move(direction, Speed);
+        movement.Move(direction, status.Speed);
         movement.Rotate(GroundMask);
     }
 
     private bool IsAlive()
     {
-        return Health > 0;
+        return status.Health > 0;
     }
 
     public void TakeDamage(int damage)
     {
-        Health -= damage;
+        status.Health -= damage;
         ScriptUIC.UpdateHealth();
         AudioController.instance.PlayOneShot(DamageSound);
-        if (Health <= 0)
+        if (status.Health <= 0)
         {
             TextGameOver.SetActive(true);
             Time.timeScale = 0;

@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public AudioClip DeathSound;
-
     public float Speed = 30;
+    public AudioClip DeathSound;
 
     private new Rigidbody rigidbody;
 
