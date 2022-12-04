@@ -93,6 +93,8 @@ public class ZombieController : MonoBehaviour, IKillable
 
     void Attack()
     {
+        direction = Direction(player.transform.position);
+
         animator.Attack(true);
     }
 
