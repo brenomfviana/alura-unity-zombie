@@ -11,7 +11,8 @@ public class UIController : MonoBehaviour
         
     void Start()
     {
-        scriptPC = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        scriptPC = GameObject.FindWithTag(Tags.PLAYER)
+            .GetComponent<PlayerController>();
         PlayerHealth.maxValue = scriptPC.status.Health;
         UpdateHealth();
     }

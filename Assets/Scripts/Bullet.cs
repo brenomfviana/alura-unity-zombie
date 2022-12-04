@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float Speed = 30;
+    public int Damage = 1;
 
     private MovementController movement;
 
@@ -21,10 +22,10 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Inimigo")
+        if (other.tag == Tags.ENEMY)
         {
             ZombieController enemy = other.GetComponent<ZombieController>();
-            enemy.TakeDamage(1);
+            enemy.TakeDamage(Damage);
         }
         Destroy(gameObject);
     }

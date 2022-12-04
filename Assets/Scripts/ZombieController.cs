@@ -12,11 +12,17 @@ public class ZombieController : MonoBehaviour, IKillable
     private MovementController movement;
     private AnimatorController animator;
 
+    public float AttackDistance = 2.5f;
+    public int MinDamage = 20;
+    public int MaxDamage = 30;
     public AudioClip DeathSound;
+
+    private int MinZombieLook = 1;
+    private int MaxZombieLook = 28;
 
     void Start()
     {
-        Player = GameObject.FindWithTag("Player");
+        Player = GameObject.FindWithTag(Tags.PLAYER);
 
         status = GetComponent<Status>();
 
@@ -30,14 +36,14 @@ public class ZombieController : MonoBehaviour, IKillable
     {
         Vector3 direction = Direction(Player.transform.position);
 
-        if (Distance(Player.transform.position) > 2.5f)
+        if (IsCloseToAttack(Player.transform.position))
         {
-            movement.Move(direction, status.Speed);
-            animator.Attack(false);
+            animator.Attack(true);
         }
         else
         {
-            animator.Attack(true);
+            movement.Move(direction, status.Speed);
+            animator.Attack(false);
         }
 
         movement.Rotate(direction);
@@ -45,8 +51,8 @@ public class ZombieController : MonoBehaviour, IKillable
 
     private void SetZombieLook()
     {
-        int zombieType = Random.Range(1, 28);
-        transform.GetChild(zombieType).gameObject.SetActive(true);
+        int look = Random.Range(MinZombieLook, MaxZombieLook);
+        transform.GetChild(look).gameObject.SetActive(true);
     }
 
     Vector3 Position()
@@ -64,10 +70,15 @@ public class ZombieController : MonoBehaviour, IKillable
         return Vector3.Distance(Position(), target);
     }
 
+    bool IsCloseToAttack(Vector3 target)
+    {
+        return Distance(Player.transform.position) <= AttackDistance;
+    }
+
     void HitPlayer()
     {
         PlayerController pc = Player.GetComponent<PlayerController>();
-        int damage = Random.Range(20, 30);
+        int damage = Random.Range(MinDamage, MaxDamage);
         pc.TakeDamage(damage);
     }
 

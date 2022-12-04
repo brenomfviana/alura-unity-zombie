@@ -6,6 +6,9 @@ public class AnimatorController : MonoBehaviour
 {
     private Animator animator;
 
+    private static string IS_ATTACKING = "IsAttacking";
+    private static string MOVING = "Moving";
+
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -13,11 +16,11 @@ public class AnimatorController : MonoBehaviour
 
     public void Attack(bool state)
     {
-        animator.SetBool("IsAttacking", state);
+        animator.SetBool(IS_ATTACKING, state);
     }
 
     public void Move(float speed)
     {
-        animator.SetFloat("Moving", speed);
+        animator.SetFloat(MOVING, speed);
     }
 }
